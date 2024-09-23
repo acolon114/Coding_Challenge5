@@ -42,3 +42,16 @@ function placeOrder(customerName, incomingOrder) {
 // Test new order
 const testOrder = [{name: 'Espresso', quantity: 9}, {name: 'Mocha', quantity: 3}]
 placeOrder("Logan", testOrder);
+
+// Task 4: Create a Function to Calculate Total for an Order
+function calculateOrderTotal(order) {
+    let totalCost = 0; // Initialize summation variable
+    order.items.forEach(element => { // Iterate through items property of the selected order
+        // Select item from inventory corresponsing with current item
+        const inventoryItem = inventory.find(item => item.name === element['name']);
+        totalCost += (element['quantity'] * inventoryItem['price']);
+    });
+
+    return totalCost;
+}
+console.log(calculateOrderTotal(orders[0]));
