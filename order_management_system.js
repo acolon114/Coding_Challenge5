@@ -45,8 +45,13 @@ placeOrder("Logan", testOrder);
 
 // Task 4: Create a Function to Calculate Total for an Order
 function calculateOrderTotal(order) {
+    // Error checking to make sure orders array has records 
+    if (!orders.length > 0) {
+        return;
+    }
+    
     let totalCost = 0; // Initialize summation variable
-    order.items.forEach(element => { // Iterate through items property of the selected order
+    order.items.forEach(element => { // Go through items property of the selected order
         // Select item from inventory corresponsing with current item
         const inventoryItem = inventory.find(item => item.name === element['name']);
         totalCost += (element['quantity'] * inventoryItem['price']);
@@ -54,7 +59,7 @@ function calculateOrderTotal(order) {
 
     return totalCost;
 }
-console.log(calculateOrderTotal(orders[0]));
+console.log(calculateOrderTotal(orders[0])); // Output: 42
 
 // Task 5: Create a Function to Mark an Order as Completed
 function completeOrder(customerName) {
@@ -68,3 +73,19 @@ function completeOrder(customerName) {
 
     selectedOrder.status = "Completed"; // Change status
 }
+
+// Task 6: Create a Function to Check Pending Orders
+function checkPendingOrders() {
+    // Go through all orders
+    orders.forEach(element => {
+        // Only care about pending orders
+        if (element['status'] === "Pending") {
+            console.log("Order submitted by " + element['customerName'] + " is still pending.\nOrder Details:") //Output: Order submitted by Logan is still pending. Order Deatails: 
+            // Go through elements of the items array for pending orders
+            element.items.forEach(element => {
+                console.log("   Item: " + element['name'] + " | Quantity: " + element['quantity']); // Output: Item: Espresso | Quantity: 9; Item: Mocha | Quantity: 3
+            });
+        }
+    });
+}
+checkPendingOrders();
